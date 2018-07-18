@@ -12,7 +12,7 @@ public class DataManager {
     public Call<List<User>> getUsers(){
         return ServicesGenerator.createService(GitHubApi.class).getUsers();
     }
-
-
-
+    public Call<User> getUserDetails(String login){
+        return ServicesGenerator.createService(GitHubApi.class).getUserDetails(login);
+    }
 }

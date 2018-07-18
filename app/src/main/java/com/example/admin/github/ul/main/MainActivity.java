@@ -2,6 +2,7 @@ package com.example.admin.github.ul.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,17 +26,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private MainPresenter presenter;
     private TextView textView;
     private TextView error_bar;
+    private DividerItemDecoration dividerItemDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         textView =  findViewById(R.id.text_bar);
-        error_bar =  findViewById(R.id.error_bar);
+        textView = findViewById(R.id.text_bar);
+        error_bar = findViewById(R.id.error_bar);
 
-        recyclerView =  findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerView = findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         presenter = new MainPresenter(((App) getApplication()).getDataManager());
         presenter.attachView(this);
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void showUsers(List<User> users) {
-        if (userAdapter == null){
+        if (userAdapter == null) {
             userAdapter = new UserAdapter(users);
             recyclerView.setAdapter(userAdapter);
         }

@@ -11,4 +11,7 @@ import retrofit2.http.Path;
 public interface GitHubApi {
     @GET("users")
     Call<List<User>> getUsers();
+
+    @GET("users/{login}")
+    Call<User> getUserDetails(@Path("login") String login);
 }
